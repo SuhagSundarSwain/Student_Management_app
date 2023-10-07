@@ -45,6 +45,7 @@ public class MainController {
     @GetMapping("/students/{id}")
     public Student getStudent(@PathVariable("id") int Id){
         return this.studentServices.getStudentById(Id);
+    
     }
 
 
