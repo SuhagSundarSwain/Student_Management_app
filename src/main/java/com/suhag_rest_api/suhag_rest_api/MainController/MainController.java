@@ -1,8 +1,12 @@
 package com.suhag_rest_api.suhag_rest_api.MainController;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +31,7 @@ public class MainController {
     // @RequestMapping(value = "/student", method=RequestMethod.GET)
     /*@RequestMapping(method=RequestMethod.Get) == @GetMapping() */
     @GetMapping("/students")
-    public List<Student> getAllStudents(){
+    public ResponseEntity<List<Student>> getAllStudents(){
         /*Only for demo in One object; then I created fake services */
         // Student student = new Student();
         // student.setsId(441);
@@ -39,26 +43,52 @@ public class MainController {
 
         //Jackson automatically conver object to JSON format
         // return student;
-        return this.studentServices.getAllStudent();
+        // return this.studentServices.getAllStudent();
+
+        try {
+            var list = this.studentServices.getAllStudent();
+            return ResponseEntity.of(Optional.of(list));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @GetMapping("/students/{id}")
-    public Student getStudent(@PathVariable("id") int Id){
-        return this.studentServices.getStudentById(Id);
+    public ResponseEntity<Student> getStudent(@PathVariable("id") int Id){
+        // return this.studentServices.getStudentById(Id);
+        try {
+            var student = this.studentServices.getStudentById(Id);
+            return ResponseEntity.of(Optional.of(student));
+        } catch (Exception e) {
+          return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        
+
     
     }
 
 
     //POST method RestAPI
     @PostMapping("/students")
-    public Student addStudent(@RequestBody Student student){
-        return this.studentServices.addStudent(student);
+    public ResponseEntity<Student> addStudent(@RequestBody Student student){
+        // return this.studentServices.addStudent(student);
+        try {
+            this.studentServices.addStudent(student);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     //DELETE method RestAPI
     @DeleteMapping("/students/{id}")
-    public void deleteStudent(@PathVariable("id") int Id){
-       this.studentServices.deleteStudent(Id);
+    public ResponseEntity<Void> deleteStudent(@PathVariable("id") int Id){
+       try {
+        this.studentServices.deleteStudent(Id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+       } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+       }
     }
 
     //PUT method RestAPI
