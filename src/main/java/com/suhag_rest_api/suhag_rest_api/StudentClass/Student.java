@@ -22,15 +22,25 @@ public class Student {
     private String sBranch;
     @Column(name="Student_Mark")
     private double sMark;
+    @Column(name="Email")
+    private String email;
+    @Column(name="Gender")
+    private String gender;
+
 
     public Student() {
     }
-    public Student(int sId, String sName, String sBranch, double sMark) {
+    
+
+    public Student(int sId, String sName, String sBranch, double sMark, String email, String gender) {
         this.sId = sId;
         this.sName = sName;
         this.sBranch = sBranch;
         this.sMark = sMark;
+        this.email = email;
+        this.gender = gender;
     }
+
 
     public int getsId() {
         return sId;
@@ -56,11 +66,26 @@ public class Student {
     public void setsMark(double sMark) {
         this.sMark = sMark;
     }
-
+    public String getEmail() {
+        return email;
+    }
+    public String getGender() {
+        return gender;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
     @Override
     public String toString() {
-        return "Student [sid=" + sId + ", sName=" + sName + ", sBranch=" + sBranch + ", sMark=" + sMark + "]";
+        return "Student [sId=" + sId + ", sName=" + sName + ", sBranch=" + sBranch + ", sMark=" + sMark + ", email="
+                + email + ", gender=" + gender + "]";
     }
+
+
+    
 
     
     
