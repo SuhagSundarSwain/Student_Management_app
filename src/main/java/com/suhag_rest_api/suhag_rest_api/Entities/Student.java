@@ -1,4 +1,4 @@
-package com.suhag_rest_api.suhag_rest_api.StudentClass;
+package com.suhag_rest_api.suhag_rest_api.Entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,15 +1,15 @@
 package com.suhag_rest_api.suhag_rest_api.Services;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.suhag_rest_api.suhag_rest_api.StudentClass.Student;
-import com.suhag_rest_api.suhag_rest_api.StudentRepository.StudentRepository;
+import com.suhag_rest_api.suhag_rest_api.Entities.LoginUser;
+import com.suhag_rest_api.suhag_rest_api.Entities.SignUpStudent;
+import com.suhag_rest_api.suhag_rest_api.Entities.Student;
+import com.suhag_rest_api.suhag_rest_api.Repository.LoginRepository;
+import com.suhag_rest_api.suhag_rest_api.Repository.StudentRepository;
 
 @Service
 // @Component
@@ -31,6 +31,9 @@ public class StudentServices {
     @Autowired
     StudentRepository studentRepository;
 
+    @Autowired
+    LoginRepository loginRepositry;
+
     public List<Student> getAllStudent(){
         // return list;
         var list = (List<Student>) this.studentRepository.findAll();
@@ -42,10 +45,27 @@ public class StudentServices {
         return this.studentRepository.findById(id);
     }
 
-    public Student addStudent(Student student){
+    public Student addStudent(SignUpStudent signUpStudent){
         // list.add(student);
         // return student;
-        return this.studentRepository.save(student);
+        Student newStudent = new Student();
+        newStudent.setsId(signUpStudent.getsId());
+        newStudent.setEmail(signUpStudent.getsEmail());
+        newStudent.setsName(signUpStudent.getsName());
+        newStudent.setsBranch(signUpStudent.getsBranch());
+        newStudent.setGender(signUpStudent.getsGender());
+        newStudent.setsMark(signUpStudent.getsMark());
+    
+        LoginUser login = new LoginUser();
+        login.setSid(signUpStudent.getsId());
+        login.setEmail(signUpStudent.getsEmail());
+        login.setPassword(signUpStudent.getPassword());
+
+    
+        this.studentRepository.save(newStudent);
+        this.loginRepositry.save(login);
+     
+        return newStudent;
     }
 
     public void deleteStudent(int id){
@@ -64,5 +84,15 @@ public class StudentServices {
         // }).collect(Collectors.toList());
         student.setsId(Id);
         this.studentRepository.save(student);
+    }
+
+    public LoginUser loginStudent(String email,String sEmail,String password){
+        LoginUser user = loginRepositry.findByEmail(email);
+        if(user.getPassword()==password){
+            return user;
+        }
+        else{
+            return new LoginUser();
+        }
     }
 }

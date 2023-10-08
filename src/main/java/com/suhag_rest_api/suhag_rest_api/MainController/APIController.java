@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,14 +14,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.suhag_rest_api.suhag_rest_api.Entities.LoginUser;
+import com.suhag_rest_api.suhag_rest_api.Entities.SignUpStudent;
+import com.suhag_rest_api.suhag_rest_api.Entities.Student;
 import com.suhag_rest_api.suhag_rest_api.Services.StudentServices;
-import com.suhag_rest_api.suhag_rest_api.StudentClass.Student;
 
 // @Controller
 // @ResponseBody
 /* For RestApi Dev we can use @RestController at the place of @Controller */
 @RestController
-public class MainController {
+public class APIController {
 
     @Autowired
     StudentServices studentServices;
@@ -70,10 +71,10 @@ public class MainController {
 
     //POST method RestAPI
     @PostMapping("/students")
-    public ResponseEntity<Student> addStudent(@RequestBody Student student){
+    public ResponseEntity<Void> addStudent(@RequestBody SignUpStudent signUpStudent){
         // return this.studentServices.addStudent(student);
         try {
-            this.studentServices.addStudent(student);
+            this.studentServices.addStudent(signUpStudent);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -96,6 +97,12 @@ public class MainController {
     public Student updateDetails(@PathVariable("id") int Id,@RequestBody Student student){
         this.studentServices.updateStudent(Id, student);
         return student;
+    }
+
+
+    @GetMapping("/login/{email}")
+    public LoginUser login(@PathVariable("email") String email,@RequestBody String sEmail,String password ){
+        return studentServices.loginStudent(email, sEmail,password);
     }
     
 }
