@@ -1,8 +1,8 @@
 # Student_Management_app
 
-##Student Management App: 
-Designed and developed a comprehensive Student Management application encompassing both web and mobile platforms. The project showcases proficiency in modern technologies and software engineering skills.
-##Key Features:
+Student Management App: 
+    Designed and developed a comprehensive Student Management application encompassing both web and mobile platforms. The project showcases proficiency in modern technologies and software engineering skills.
+Key Features:
 
     Authentication: Implemented a secure login and signup system authenticated through a custom-built API developed with Spring Boot, ensuring data privacy.
     Database Integration: Utilized MySQL for efficient data storage and retrieval, enabling users to access their profile details, exam schedules, report cards, and hostel information.
