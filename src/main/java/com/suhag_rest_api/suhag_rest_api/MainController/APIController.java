@@ -34,7 +34,7 @@ public class APIController {
     @GetMapping("/students")
     public ResponseEntity<List<Student>> getAllStudents(){
         /*Only for demo in One object; then I created fake services */
-        // Student student = new Student();
+        // Student student = new Studeznt();
         // student.setsId(441);
         // student.setsName("Suhag");
         // student.setsBranch("IT");

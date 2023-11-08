@@ -36,7 +36,7 @@ public class StudentServices {
 
     public List<Student> getAllStudent(){
         // return list;
-        var list = (List<Student>) this.studentRepository.findAll();
+        List<Student> list = (List<Student>) this.studentRepository.findAll();
         return list;
     }
 

@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 public class LoginUser {
 
     @Id
-    int sid;
+    private int sid;
 
     @Column(name = "Email")
     private String email;
@@ -23,8 +23,6 @@ public class LoginUser {
     public int getSid() {
         return sid;
     }
-
-
 
     public void setSid(int sid) {
         this.sid = sid;

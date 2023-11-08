@@ -10,12 +10,11 @@ import com.suhag_rest_api.suhag_rest_api.Repository.LoginRepository;
 @SpringBootTest
 class SuhagRestApiApplicationTests {
 
-	@Autowired
-	LoginRepository loginRepository;
+	
 
 	@Test
 	void contextLoads() {
-		System.out.println("123"=="123");
+		
 	}
 
 }
