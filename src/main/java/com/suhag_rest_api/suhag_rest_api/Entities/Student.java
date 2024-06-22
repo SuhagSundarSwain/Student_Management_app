@@ -16,21 +16,19 @@ public class Student {
     @Column(name = "Student_Id")
     private int sId;
 
-    @Column(name="Student_Name")
+    @Column(name = "Student_Name")
     private String sName;
-    @Column(name="Student_Branch")
+    @Column(name = "Student_Branch")
     private String sBranch;
-    @Column(name="Student_Mark")
-    private double sMark;
-    @Column(name="Email")
+    @Column(name = "Student_Mark")
+    private Double sMark;
+    @Column(name = "Email")
     private String email;
-    @Column(name="Gender")
+    @Column(name = "Gender")
     private String gender;
-
 
     public Student() {
     }
-    
 
     public Student(int sId, String sName, String sBranch, double sMark, String email, String gender) {
         this.sId = sId;
@@ -41,53 +39,63 @@ public class Student {
         this.gender = gender;
     }
 
-
     public int getsId() {
         return sId;
     }
+
+    public void setsId(int sId) {
+        this.sId = sId;
+    }
+
     public String getsName() {
         return sName;
     }
+
+    public void setsName(String sName) {
+        if (sName != null)
+            this.sName = sName;
+    }
+
     public String getsBranch() {
         return sBranch;
     }
-    public double getsMark() {
+
+    public void setsBranch(String sBranch) {
+        if (sBranch != null)
+            this.sBranch = sBranch;
+    }
+
+    public Double getsMark() {
         return sMark;
     }
-    public void setsId(int sid) {
-        this.sId = sid;
+
+    public void setsMark(Double sMark) {
+        if (sMark != null)
+            this.sMark = sMark;
     }
-    public void setsName(String sName) {
-        this.sName = sName;
-    }
-    public void setsBranch(String sBranch) {
-        this.sBranch = sBranch;
-    }
-    public void setsMark(double sMark) {
-        this.sMark = sMark;
-    }
+
     public String getEmail() {
         return email;
     }
+
+    public void setEmail(String email) {
+        if (email != null)
+            this.email = email;
+    }
+
     public String getGender() {
         return gender;
     }
-    public void setEmail(String email) {
-        this.email = email;
-    }
+
     public void setGender(String gender) {
-        this.gender = gender;
+        if (gender != null)
+            this.gender = gender;
     }
+
     @Override
     public String toString() {
         return "Student [sId=" + sId + ", sName=" + sName + ", sBranch=" + sBranch + ", sMark=" + sMark + ", email="
                 + email + ", gender=" + gender + "]";
     }
 
-
-    
-
-    
-    
-    
 }

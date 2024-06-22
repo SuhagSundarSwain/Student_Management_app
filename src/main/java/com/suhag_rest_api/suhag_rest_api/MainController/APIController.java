@@ -1,10 +1,12 @@
 package com.suhag_rest_api.suhag_rest_api.MainController;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,21 +30,19 @@ public class APIController {
     @Autowired
     StudentServices studentServices;
 
-    //GET method RestAPI
+    // GET method RestAPI
     // @RequestMapping(value = "/student", method=RequestMethod.GET)
-    /*@RequestMapping(method=RequestMethod.Get) == @GetMapping() */
+    /* @RequestMapping(method=RequestMethod.Get) == @GetMapping() */
     @GetMapping("/students")
-    public ResponseEntity<List<Student>> getAllStudents(){
-        /*Only for demo in One object; then I created fake services */
+    public ResponseEntity<List<Student>> getAllStudents() {
+        /* Only for demo in One object; then I created fake services */
         // Student student = new Studeznt();
         // student.setsId(441);
         // student.setsName("Suhag");
         // student.setsBranch("IT");
         // student.setsMark(9.01);
-        
 
-
-        //Jackson automatically conver object to JSON format
+        // Jackson automatically conver object to JSON format
         // return student;
         // return this.studentServices.getAllStudent();
 
@@ -55,23 +55,20 @@ public class APIController {
     }
 
     @GetMapping("/students/{id}")
-    public ResponseEntity<Student> getStudent(@PathVariable("id") int Id){
+    public ResponseEntity<Student> getStudent(@PathVariable("id") int Id) {
         // return this.studentServices.getStudentById(Id);
         try {
             var student = this.studentServices.getStudentById(Id);
             return ResponseEntity.of(Optional.of(student));
         } catch (Exception e) {
-          return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        
 
-    
     }
 
-
-    //POST method RestAPI
+    // POST method RestAPI
     @PostMapping("/students")
-    public ResponseEntity<Void> addStudent(@RequestBody SignUpStudent signUpStudent){
+    public ResponseEntity<Void> addStudent(@RequestBody SignUpStudent signUpStudent) {
         // return this.studentServices.addStudent(student);
         try {
             this.studentServices.addStudent(signUpStudent);
@@ -81,28 +78,33 @@ public class APIController {
         }
     }
 
-    //DELETE method RestAPI
+    // DELETE method RestAPI
     @DeleteMapping("/students/{id}")
-    public ResponseEntity<Void> deleteStudent(@PathVariable("id") int Id){
-       try {
-        this.studentServices.deleteStudent(Id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-       } catch (Exception e) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-       }
+    public ResponseEntity<Void> deleteStudent(@PathVariable("id") int Id) {
+        try {
+            this.studentServices.deleteStudent(Id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
-    //PUT method RestAPI
+    // PUT method RestAPI
     @PutMapping("/students/{id}")
-    public Student updateDetails(@PathVariable("id") int Id,@RequestBody Student student){
-        this.studentServices.updateStudent(Id, student);
-        return student;
+    public ResponseEntity<Student> updateDetails(@PathVariable("id") int Id, @RequestBody Student student) {
+        try {
+            Student updatedStudent = this.studentServices.updateStudent(Id, student);
+            return ResponseEntity.of(Optional.of(updatedStudent));
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+        }
     }
-
 
     @GetMapping("/login/{email}")
-    public LoginUser login(@PathVariable("email") String email,@RequestBody String sEmail,String password ){
-        return studentServices.loginStudent(email, sEmail,password);
+    public LoginUser login(@PathVariable("email") String email, @RequestBody String sEmail, String password) {
+        return studentServices.loginStudent(email, sEmail, password);
     }
-    
+
 }
