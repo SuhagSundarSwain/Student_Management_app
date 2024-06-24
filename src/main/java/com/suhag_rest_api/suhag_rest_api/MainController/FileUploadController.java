@@ -2,6 +2,8 @@ package com.suhag_rest_api.suhag_rest_api.MainController;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import com.suhag_rest_api.suhag_rest_api.Services.FileUploadServices;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,6 +47,12 @@ public class FileUploadController {
         try {
             boolean fileUploadedStatus = fileUploadServices.uploadFile(file);
             if (fileUploadedStatus) {
+                String imagePath = ServletUriComponentsBuilder.fromCurrentContextPath()
+                        .path("/images/")
+                        .path(file.getOriginalFilename())
+                        .toUriString();
+
+                responseMessage.put("image-path", imagePath);
                 responseMessage.put("message", "File uploaded successfully.");
                 return ResponseEntity.ok(responseMessage);
             } else {
