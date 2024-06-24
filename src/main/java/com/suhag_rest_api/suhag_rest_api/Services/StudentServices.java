@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.suhag_rest_api.suhag_rest_api.Entities.LoginUser;
-import com.suhag_rest_api.suhag_rest_api.Entities.SignUpStudent;
 import com.suhag_rest_api.suhag_rest_api.Entities.Student;
 import com.suhag_rest_api.suhag_rest_api.Repository.LoginRepository;
 import com.suhag_rest_api.suhag_rest_api.Repository.StudentRepository;
@@ -46,26 +45,12 @@ public class StudentServices {
         return this.studentRepository.findById(id);
     }
 
-    public Student addStudent(SignUpStudent signUpStudent) {
+    public Student addStudent(Student student) {
         // list.add(student);
         // return student;
-        Student newStudent = new Student();
-        newStudent.setsId(signUpStudent.getsId());
-        newStudent.setEmail(signUpStudent.getsEmail());
-        newStudent.setsName(signUpStudent.getsName());
-        newStudent.setsBranch(signUpStudent.getsBranch());
-        newStudent.setGender(signUpStudent.getsGender());
-        newStudent.setsMark(signUpStudent.getsMark());
 
-        LoginUser login = new LoginUser();
-        login.setSid(signUpStudent.getsId());
-        login.setEmail(signUpStudent.getsEmail());
-        login.setPassword(signUpStudent.getPassword());
+        return this.studentRepository.save(student);
 
-        this.studentRepository.save(newStudent);
-        this.loginRepositry.save(login);
-
-        return newStudent;
     }
 
     public void deleteStudent(int id) {
@@ -90,21 +75,23 @@ public class StudentServices {
         }
 
         // Check each property and update if it's not null
-        if (student.getsName() != null) {
+        if (student.getsName() != null)
             existingStudent.setsName(student.getsName());
-        }
-        if (student.getsBranch() != null) {
+
+        if (student.getsBranch() != null)
             existingStudent.setsBranch(student.getsBranch());
-        }
-        if (student.getEmail() != null) {
+
+        if (student.getEmail() != null)
             existingStudent.setEmail(student.getEmail());
-        }
-        if (student.getGender() != null) {
+
+        if (student.getGender() != null)
             existingStudent.setGender(student.getGender());
-        }
-        if (student.getsMark() != null) {
+
+        if (student.getsMark() != null)
             existingStudent.setsMark(student.getsMark());
-        }
+
+        if (student.getAddress() != null)
+            existingStudent.setAddress(student.getAddress());
 
         // Save and return the updated student
         Student updatedStudent = this.studentRepository.save(existingStudent);

@@ -1,7 +1,5 @@
 package com.suhag_rest_api.suhag_rest_api.Repository;
 
-import java.lang.annotation.Native;
-
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

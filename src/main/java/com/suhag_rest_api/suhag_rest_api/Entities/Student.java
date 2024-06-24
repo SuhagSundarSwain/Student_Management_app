@@ -1,10 +1,12 @@
 package com.suhag_rest_api.suhag_rest_api.Entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,16 +29,20 @@ public class Student {
     @Column(name = "Gender")
     private String gender;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Address address;
+
     public Student() {
     }
 
-    public Student(int sId, String sName, String sBranch, double sMark, String email, String gender) {
+    public Student(int sId, String sName, String sBranch, Double sMark, String email, String gender, Address address) {
         this.sId = sId;
         this.sName = sName;
         this.sBranch = sBranch;
         this.sMark = sMark;
         this.email = email;
         this.gender = gender;
+        this.address = address;
     }
 
     public int getsId() {
@@ -90,6 +96,15 @@ public class Student {
     public void setGender(String gender) {
         if (gender != null)
             this.gender = gender;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        if (address != null)
+            this.address = address;
     }
 
     @Override

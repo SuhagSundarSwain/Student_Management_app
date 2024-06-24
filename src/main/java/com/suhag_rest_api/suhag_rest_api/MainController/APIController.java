@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.suhag_rest_api.suhag_rest_api.Entities.LoginUser;
-import com.suhag_rest_api.suhag_rest_api.Entities.SignUpStudent;
 import com.suhag_rest_api.suhag_rest_api.Entities.Student;
 import com.suhag_rest_api.suhag_rest_api.Services.StudentServices;
 
@@ -68,11 +66,10 @@ public class APIController {
 
     // POST method RestAPI
     @PostMapping("/students")
-    public ResponseEntity<Void> addStudent(@RequestBody SignUpStudent signUpStudent) {
+    public ResponseEntity<Student> addStudent(@RequestBody Student student) {
         // return this.studentServices.addStudent(student);
         try {
-            this.studentServices.addStudent(signUpStudent);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            return ResponseEntity.status(HttpStatus.CREATED).body(this.studentServices.addStudent(student));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
