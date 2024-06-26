@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.com">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 th:text="'My name is '+${name}"></h1>
+    <h2>current time - <span th:text="${time}"></span></h2>
+
+    <h3 th:text="'name in uppercase : '+${#strings.toUpperCase(name)}"></h3>
+    <h3 th:text="'name length : '+${#strings.length(name)}"></h3>
+
+    <div th:with="a=5,b=23,n=${name}">
+      <h3>value of a : <span th:text="${a}"></span></h3>
+      <h3 th:text="'value of b : '+${b}"></span></h3>
+      <h3 th:text="'name : '+${n}"></span></h3>
+      <h3 th:text="'sum of ' + ${a} + ' and ' + ${b} + ' : ' + ${a+b}"></span></h3>
+
+    </div>
+  </body>
+</html>

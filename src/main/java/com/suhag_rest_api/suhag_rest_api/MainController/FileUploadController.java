@@ -34,7 +34,7 @@ public class FileUploadController {
         // responseMessage.put("info", fileInfo);
 
         if (file.isEmpty()) {
-            responseMessage.put("error-message", "File can't be empty. Please upload a file.");
+            responseMessage.put("error-message", "File can't be empty. Please select a file.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseMessage);
         }
 
