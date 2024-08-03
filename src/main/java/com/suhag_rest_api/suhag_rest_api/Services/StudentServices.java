@@ -69,7 +69,7 @@ public class StudentServices {
         // }).collect(Collectors.toList());
 
         // Retrieve the existing student by id
-        Student existingStudent = this.studentRepository.findById(Id);
+        Student existingStudent = this.studentRepository.findById(student.getsId());
         if (existingStudent == null) {
             throw new NoSuchElementException("Student with ID " + Id + " not found.");
         }

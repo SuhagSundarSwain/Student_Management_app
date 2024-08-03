@@ -1,12 +1,16 @@
 package com.suhag_rest_api.suhag_rest_api.MainController;
 
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,9 +19,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.suhag_rest_api.suhag_rest_api.Entities.ErrorResponse;
 import com.suhag_rest_api.suhag_rest_api.Entities.LoginUser;
 import com.suhag_rest_api.suhag_rest_api.Entities.Student;
 import com.suhag_rest_api.suhag_rest_api.Services.StudentServices;
+
+import jakarta.validation.Valid;
 
 // @Controller
 // @ResponseBody
@@ -66,7 +73,15 @@ public class APIController {
 
     // POST method RestAPI
     @PostMapping("/students")
-    public ResponseEntity<Student> addStudent(@RequestBody Student student) {
+    public ResponseEntity<Object> addStudent(@Valid @RequestBody Student student, BindingResult result) {
+
+        if (result.hasErrors()) {
+            Map<String, String> errors = result.getFieldErrors().stream()
+                    .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
+            ErrorResponse errorResponse = new ErrorResponse("Validation Error", errors);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+        }
+
         // return this.studentServices.addStudent(student);
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(this.studentServices.addStudent(student));

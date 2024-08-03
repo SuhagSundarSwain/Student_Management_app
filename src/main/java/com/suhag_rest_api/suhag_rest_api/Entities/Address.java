@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "Address")
@@ -14,11 +15,17 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int addressId;
+
     @Column(name = "address")
+    @NotBlank()
     private String address;
+
     @Column(name = "city")
+    @NotBlank()
     private String city;
+
     @Column(name = "state")
+    @NotBlank
     private String state;
 
     public Address() {

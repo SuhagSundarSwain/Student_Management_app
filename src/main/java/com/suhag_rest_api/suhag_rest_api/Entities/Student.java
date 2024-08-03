@@ -8,6 +8,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 @Table(name = "students")
@@ -19,17 +25,29 @@ public class Student {
     private int sId;
 
     @Column(name = "Student_Name")
+    @NotBlank(message = "Please enter your name.")
+    // @Size(min = 2, max = 20, message = "Name should between 3 to 20 character.")
     private String sName;
+
     @Column(name = "Student_Branch")
+    @NotBlank(message = "Please enter your branch.")
     private String sBranch;
+
     @Column(name = "Student_Mark")
+    @NotNull(message = "Please enter your mark.")
+    @PositiveOrZero(message = "Enter your mark correctly.")
     private Double sMark;
+
     @Column(name = "Email")
+    @NotBlank(message = "Please enter your email.")
+    @Email(message = "enter a valid email")
     private String email;
+
     @Column(name = "Gender")
+    @NotBlank(message = "Please enter your gender.")
     private String gender;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Address address;
 
     public Student() {

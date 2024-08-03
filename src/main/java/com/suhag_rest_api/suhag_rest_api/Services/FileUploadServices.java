@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,10 +12,12 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileUploadServices {
 
     // STATIC DIRECTORY
-    // private final String UPLOAD_DIR = "src/main/resources/static/images";
+    private final String UPLOAD_DIR = "src/main/resources/static/images";
 
     // DYNAMIC DIRECTORY
-    private final String UPLOAD_DIR = new ClassPathResource("static/images").getFile().getAbsolutePath();//If directory not present please create
+    // private final String UPLOAD_DIR = new
+    // ClassPathResource("static/images").getFile().getAbsolutePath();//If directory
+    // not present please create
 
     public FileUploadServices() throws IOException {
     }

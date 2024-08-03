@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class FrontedController {
@@ -31,6 +32,12 @@ public class FrontedController {
         model.addAttribute("name", "Suhag Sundar Swain");
         model.addAttribute("time", new Date().toLocaleString());
         return "about";
+    }
+
+    @GetMapping("/checking")
+    @ResponseBody
+    public String getMethodName() {
+        return new String();
     }
 
 }
